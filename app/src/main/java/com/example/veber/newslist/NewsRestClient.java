@@ -1,8 +1,5 @@
 package com.example.veber.newslist;
 import com.loopj.android.http.*;
-/**
- * Created by Veiber on 05.01.2017.
- */
 
 public class NewsRestClient {
     private static final String BASE_URL = "http://newsapi.org/v1/articles";

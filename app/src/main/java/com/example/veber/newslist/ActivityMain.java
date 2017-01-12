@@ -3,6 +3,8 @@ package com.example.veber.newslist;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 
 import cz.msebera.android.httpclient.Header;
@@ -21,5 +23,10 @@ public class ActivityMain extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        String json;
+        //AllNews _allnews = new AllNews();
+        Gson gson = new Gson();
+        AllNews _allnews = gson.fromJson(json, AllNews.class);
     }
 }
