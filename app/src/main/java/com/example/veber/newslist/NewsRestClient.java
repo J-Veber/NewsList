@@ -5,7 +5,7 @@ import com.loopj.android.http.*;
  */
 
 public class NewsRestClient {
-    private static final String BASE_URL = "https://newsapi.org/v1/articles";
+    private static final String BASE_URL = "http://newsapi.org/v1/articles";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
