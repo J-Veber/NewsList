@@ -65,10 +65,10 @@
                     android:textColor="@color/brown100">
                 </TextView>
                 <TextView
-                    android:id="@+id/textView_NewsDescription"
+                    android:id="@+id/textView_NewsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Здесь должно быть ОПИСАНИЕ"
+                    android:text="Здесь должне быть ЗАГОЛОВОК"
                     android:layout_marginTop="5dp"
                     android:textSize="20sp"
                     android:textColor="@color/brown100">
