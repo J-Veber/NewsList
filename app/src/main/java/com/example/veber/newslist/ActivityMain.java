@@ -1,53 +1,41 @@
 package com.example.veber.newslist;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import org.json.JSONException;
 
-import cz.msebera.android.httpclient.Header;
-
 
 public class ActivityMain extends AppCompatActivity {
+    LinearLayout contentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton _menuIB;
-        TextView _authorTV;
-        TextView _dateTV;
-        TextView _titleTV;
-        ImageView _newspicIV;
-
-        _menuIB = (ImageButton)findViewById(R.id.imageButton);
-        _authorTV = (TextView)findViewById(R.id.textView_author);
-        _dateTV = (TextView)findViewById(R.id.textView_date);
-        _titleTV = (TextView)findViewById(R.id.textView_NewsTitle);
-        _newspicIV = (ImageView)findViewById(R.id.imageView_NewsImage);
-
+        contentContainer = (LinearLayout) findViewById(R.id.content_container);
+/*
         NewsRestClientUsage _newsRestClientUsage = new NewsRestClientUsage();
         try {
             _newsRestClientUsage.getNews();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+*/
+        News news1 = new News("1","1","1","1","1","1");
+        this.showOneNews(news1);
+        this.showOneNews(news1);
+        this.showOneNews(news1);
+        this.showOneNews(news1);
+        this.showOneNews(news1);
+        this.showOneNews(news1);
+    }
 
-        String json = "";
-        //AllNews _allnews = new AllNews();
-        Gson gson = new Gson();
-        AllNews _allnews = gson.fromJson(json, AllNews.class);
-
-        ImageLoader _imageLoader = ImageLoader.getInstance();
-        //_imageLoader.displayImage();
-
+    protected void showOneNews(News news) {
+        LinearLayout newNewsView = news.getView(getLayoutInflater());
+        contentContainer.addView(newNewsView);
     }
 }

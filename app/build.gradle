@@ -27,9 +27,9 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
 
-    //Moshi
-    compile 'com.squareup.moshi:moshi:1.3.1'
-    testCompile 'junit:junit:4.12'
+//    //Moshi
+//    compile 'com.squareup.moshi:moshi:1.3.1'
+//    testCompile 'junit:junit:4.12'
     //Gson
     compile 'com.google.code.gson:gson:2.6.2'
     //Android-Universal-Image-Loader
