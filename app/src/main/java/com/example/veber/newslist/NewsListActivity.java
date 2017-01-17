@@ -1,5 +1,6 @@
 package com.example.veber.newslist;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +8,10 @@ import android.widget.LinearLayout;
 
 import org.json.JSONException;
 
+import java.util.List;
 
-public class ActivityMain extends AppCompatActivity {
+
+public class NewsListActivity extends AppCompatActivity {
     LinearLayout contentContainer;
 
     @Override
@@ -17,25 +20,21 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         contentContainer = (LinearLayout) findViewById(R.id.content_container);
-/*
-        NewsRestClientUsage _newsRestClientUsage = new NewsRestClientUsage();
+
+        NewsRestClientUsage _newsRestClientUsage = new NewsRestClientUsage(this);
         try {
             _newsRestClientUsage.getNews();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-*/
-        News news1 = new News("1","1","1","1","1","1");
-        this.showOneNews(news1);
-        this.showOneNews(news1);
-        this.showOneNews(news1);
-        this.showOneNews(news1);
-        this.showOneNews(news1);
-        this.showOneNews(news1);
     }
 
-    protected void showOneNews(News news) {
-        LinearLayout newNewsView = news.getView(getLayoutInflater());
+    public void showOneNews(News news) {
+        LinearLayout newNewsView = news.getView(getLayoutInflater(), this);
         contentContainer.addView(newNewsView);
+    }
+
+    public void toSavedNews(View view) {
+        List<News> news = News.listAll(News.class);
     }
 }

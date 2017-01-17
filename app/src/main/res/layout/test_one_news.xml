@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_oneNews"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="5"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/picPlusText"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="240dp">
+        <ImageView
+            android:id="@+id/imageView_NewsImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/cat"
+            android:scaleType="centerCrop"
+            android:background="@drawable/cat"
+            />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/text_scrim_height_top"-->
+            <!--android:background="@drawable/scrim_bottom"-->
+            <!--app:layout_collapseMode="pin"/>-->
+
+        <RelativeLayout
+            android:id="@+id/picText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:id="@+id/textView_NewsTitle"
+                android:shadowColor="@color/blueGrey900"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Здесь должне быть ЗАГОЛО"
+                android:textSize="20sp"
+                android:textColor="@color/brown100">
+            </TextView>
+            <TextView
+                android:id="@+id/textView_author"
+                android:shadowColor="@color/blueGrey900"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:layout_below="@id/textView_NewsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Здесь должен быть АВТОР"
+                android:textSize="16sp"
+                android:textColor="@color/brown100">
+            </TextView>
+            <TextView
+                android:id="@+id/textView_date"
+                android:shadowColor="@color/blueGrey900"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:layout_below="@id/textView_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Здесь должна быть ДАТА"
+                android:textColor="@color/brown100"
+                android:textSize="10sp">
+            </TextView>
+        </RelativeLayout>
+        <ImageButton
+            android:id="@+id/imageButton_saveNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@android:drawable/btn_star_big_off"
+            android:onClick="saveNews"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/TextView_Description"
+        android:shadowColor="@color/blueGrey900"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Some text"
+        android:textColor="@color/brown100"
+        android:textSize="15sp"
+        android:textAppearance="@android:style/TextAppearance.Holo" />
+
+</LinearLayout>
