@@ -25,9 +25,7 @@ class NewsRestClientUsage {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-//                Log.d(TAG, response.toString());
-//                Log.d(TAG, "response is JSONObject");
+
                 Moshi moshi = new Moshi.Builder().build();
                 JsonAdapter<AllNews> jsonAdapter = moshi.adapter(AllNews.class);
 

@@ -27,7 +27,7 @@
         android:layout_above="@+id/relativeLayout_NewsItem"
         android:layout_alignParentStart="true"
         android:id="@+id/imageButton"
-        android:onClick="toSavedNews"/>
+        android:onClick="toSaveNews"/>
 
     <ScrollView
         android:id="@+id/relativeLayout_NewsItem"

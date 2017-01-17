@@ -17,11 +17,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.orm.SugarRecord;
 
-import static android.R.drawable.btn_star_big_off;
-import static android.R.drawable.ic_menu_recent_history;
-import static com.example.veber.newslist.R.id.imageButton;
-import static com.example.veber.newslist.R.id.imageButton_saveNews;
-
 public class News extends SugarRecord{
     public String author;
     public String title;
@@ -92,17 +87,17 @@ public class News extends SugarRecord{
         {
             public void onClick(View v)
             {
-                News savedNews = new News(author,
-                        title,
-                        description,
-                        url,
-                        urlToImage,
-                        publishedAt);
-                savedNews.save();
+//                News savedNews = new News(author,
+//                        title,
+//                        description,
+//                        url,
+//                        urlToImage,
+//                        publishedAt);
+//                savedNews.save();
+                News.this.save();
                 Toast.makeText(context, "Save news", Toast.LENGTH_LONG).show();
             }
         });
-
         return container;
 
     }

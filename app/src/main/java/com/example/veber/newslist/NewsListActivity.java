@@ -1,6 +1,7 @@
 package com.example.veber.newslist;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +35,8 @@ public class NewsListActivity extends AppCompatActivity {
         contentContainer.addView(newNewsView);
     }
 
-    public void toSavedNews(View view) {
-        List<News> news = News.listAll(News.class);
+    public void toSaveNews(View view) {
+        Intent intent = new Intent(this, SavedNews.class);
+        startActivity(intent);
     }
 }
