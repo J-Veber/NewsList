@@ -2,6 +2,7 @@ package com.example.veber.newslist;
 
 
 import android.content.Context;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 public class News extends SugarRecord{
     public String author;
     public String title;
@@ -24,9 +27,9 @@ public class News extends SugarRecord{
     public String url;
     public String urlToImage;
     public String publishedAt;
-    public Boolean flag;
 
-    News(String author, String title, String description, String url, String urlToImage, String publishedAt){
+
+    public News(String author, String title, String description, String url, String urlToImage, String publishedAt){
         this.author = author;
         this.title = title;
         this.description = description;
@@ -34,49 +37,29 @@ public class News extends SugarRecord{
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
     }
-    News (){
-        this.author = "";
-        this.title = "";
-        this.description = "";
-        this.url = "";
-        this.urlToImage = "";
-        this.publishedAt = "";
-    }
+    public News (){}
 
     public LinearLayout getView(LayoutInflater inflater, final Context context) {
         LinearLayout container = (LinearLayout)inflater.inflate(R.layout.test_one_news, null, false);
-        //ViewGroup.LayoutParams container_params = container.getLayoutParams();
 
         TextView authorTV = (TextView) container.findViewById(R.id.textView_author);
         authorTV.setText(author);
         TextView titleTV = (TextView) container.findViewById(R.id.textView_NewsTitle);
         titleTV.setText(title);
         TextView descriptionTV = (TextView) container.findViewById(R.id.TextView_Description);
-        descriptionTV.setText(description);
+        description = description + "\n" + "\n" + "More here: " + "\n" + url  + "\n";
+        if (descriptionTV != null) {
+            descriptionTV.setText(description);
+            Linkify.addLinks(descriptionTV, Linkify.ALL);
+        }
+
         TextView publishedAtTV = (TextView) container.findViewById(R.id.textView_date);
         publishedAtTV.setText(publishedAt);
         final ImageView newsImage = (ImageView) container.findViewById(R.id.imageView_NewsImage);
-        //Glide.with(context).load(urlToImage).fitCenter().into(newsImage);
-        //Glide.with(context).load(urlToImage).override(768,240).fitCenter().into(newsImage);
 
 
-        Glide
-                .with( context )
+        Glide.with( context )
                 .load(urlToImage)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        // todo log exception
-                        newsImage.setImageResource(R.drawable.cat);
-                        // important to return false so the error placeholder can be placed
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                } )
                 .error( R.drawable.cat )
                 .into( newsImage );
 
@@ -87,19 +70,13 @@ public class News extends SugarRecord{
         {
             public void onClick(View v)
             {
-//                News savedNews = new News(author,
-//                        title,
-//                        description,
-//                        url,
-//                        urlToImage,
-//                        publishedAt);
-//                savedNews.save();
+
                 News.this.save();
-                Toast.makeText(context, "Save news", Toast.LENGTH_LONG).show();
+                List<News> n = News.listAll(News.class);
+                Toast.makeText(context, "Save news", Toast.LENGTH_SHORT).show();
             }
         });
         return container;
-
     }
 
     @Override
