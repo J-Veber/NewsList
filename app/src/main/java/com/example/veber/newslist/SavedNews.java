@@ -1,35 +1,49 @@
 package com.example.veber.newslist;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
 
-public class SavedNews extends AppCompatActivity {
-
-    LinearLayout contentContainer;
+public class SavedNews extends NewsListActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_news);
+    protected void buttonAction(){
+        finish();
+    }
 
-        contentContainer = (LinearLayout) findViewById(R.id.content_container_saved_news);
-        ImageButton IB_delete_news = (ImageButton)contentContainer.findViewById(R.id.imageButton_saveNews);
-        IB_delete_news.setImageResource(android.R.drawable.ic_menu_delete);
-        //IB.setVisibility(View.GONE);
+    @Override
+    protected void loadData() {
+
         List<News> news = News.listAll(News.class);
+
         if (news.size() > 0) {
             for (News cur_news: news) {
-                LinearLayout newNewsView = cur_news.getView(getLayoutInflater(), this);
-                contentContainer.addView(newNewsView);
+                View newsView = cur_news.getView(getLayoutInflater(), getApplicationContext());
+                cur_news.setDeleteListner(getApplicationContext());
+                showOneNews(newsView);
             }
         } else if (news.size() == 0) {
             Toast.makeText(this, "You have not any saved news", Toast.LENGTH_SHORT).show();
         }
     }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_saved_news);
+//
+//        List<News> news = News.listAll(News.class);
+//
+//        if (news.size() > 0) {
+//            for (News cur_news: news) {
+//                View newsView = cur_news.getView(getLayoutInflater(), getApplicationContext());
+//                cur_news.setDeleteListner(getApplicationContext());
+//                showOneNews(newsView);
+//            }
+//        } else if (news.size() == 0) {
+//            Toast.makeText(this, "You have not any saved news", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }

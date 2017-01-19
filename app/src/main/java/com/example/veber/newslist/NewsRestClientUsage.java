@@ -1,5 +1,6 @@
 package com.example.veber.newslist;
 import android.util.Log;
+import android.view.View;
 
 import org.json.*;
 import com.loopj.android.http.*;
@@ -32,7 +33,9 @@ class NewsRestClientUsage {
                 try {
                     AllNews allNews = jsonAdapter.fromJson(response.toString());
                     for (News news: allNews.articles) {
-                        receiver_activity.showOneNews(news);
+                        View newsView = news.getView(receiver_activity.getLayoutInflater(), receiver_activity.getApplicationContext());
+                        news.setSaveListner(receiver_activity.getApplicationContext());
+                        receiver_activity.showOneNews(newsView);
                     }
                 } catch (IOException ignored) {}
             }

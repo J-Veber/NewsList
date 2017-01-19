@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import org.json.JSONException;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 public class NewsListActivity extends AppCompatActivity {
+
     LinearLayout contentContainer;
 
     @Override
@@ -22,6 +24,24 @@ public class NewsListActivity extends AppCompatActivity {
 
         contentContainer = (LinearLayout) findViewById(R.id.content_container);
 
+        ImageButton toSavedNews = (ImageButton) findViewById(R.id.imageButton);
+        toSavedNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonAction();
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        loadData();
+    }
+
+    protected void loadData(){
+
         NewsRestClientUsage _newsRestClientUsage = new NewsRestClientUsage(this);
         try {
             _newsRestClientUsage.getNews();
@@ -30,13 +50,14 @@ public class NewsListActivity extends AppCompatActivity {
         }
     }
 
-    public void showOneNews(News news) {
-        LinearLayout newNewsView = news.getView(getLayoutInflater(), this);
-        contentContainer.addView(newNewsView);
+    protected void buttonAction(){
+
+        Intent intent = new Intent(NewsListActivity.this, SavedNews.class);
+        startActivity(intent);
     }
 
-    public void toSaveNews(View view) {
-        Intent intent = new Intent(this, SavedNews.class);
-        startActivity(intent);
+    public void showOneNews(View news) {
+
+        contentContainer.addView(news);
     }
 }

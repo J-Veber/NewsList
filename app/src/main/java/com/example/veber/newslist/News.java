@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,12 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.orm.SugarRecord;
-
-import java.util.List;
+import com.orm.dsl.Ignore;
 
 public class News extends SugarRecord{
     public String author;
@@ -28,6 +23,10 @@ public class News extends SugarRecord{
     public String urlToImage;
     public String publishedAt;
 
+    @Ignore
+    private transient LinearLayout container;
+    @Ignore
+    private transient ImageButton imageButton_action_with_news;
 
     public News(String author, String title, String description, String url, String urlToImage, String publishedAt){
         this.author = author;
@@ -47,9 +46,10 @@ public class News extends SugarRecord{
         TextView titleTV = (TextView) container.findViewById(R.id.textView_NewsTitle);
         titleTV.setText(title);
         TextView descriptionTV = (TextView) container.findViewById(R.id.TextView_Description);
-        description = description + "\n" + "\n" + "More here: " + "\n" + url  + "\n";
+        String news_content = description + "\n" + "\n" + "More here: " + "\n" + url  + "\n";
+
         if (descriptionTV != null) {
-            descriptionTV.setText(description);
+            descriptionTV.setText(news_content);
             Linkify.addLinks(descriptionTV, Linkify.ALL);
         }
 
@@ -57,30 +57,44 @@ public class News extends SugarRecord{
         publishedAtTV.setText(publishedAt);
         final ImageView newsImage = (ImageView) container.findViewById(R.id.imageView_NewsImage);
 
-
         Glide.with( context )
                 .load(urlToImage)
                 .error( R.drawable.cat )
                 .into( newsImage );
 
 
-        final ImageButton imageButton_saveNews = (ImageButton)container.findViewById(R.id.imageButton_saveNews);
+        imageButton_action_with_news = (ImageButton)container.findViewById(R.id.imageButton_saveNews);
 
-        imageButton_saveNews.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-
-                News.this.save();
-                List<News> n = News.listAll(News.class);
-                Toast.makeText(context, "Save news", Toast.LENGTH_SHORT).show();
-            }
-        });
         return container;
     }
 
     @Override
     public String toString(){
         return author + " " + title + " " + description + " " + url;
+    }
+
+    public void setSaveListner(final Context context) {
+
+        imageButton_action_with_news.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                News.this.save();
+                Toast.makeText(context, "News has been saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setDeleteListner(final Context context){
+
+        imageButton_action_with_news.setImageResource(android.R.drawable.ic_menu_delete);
+        imageButton_action_with_news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                News.this.delete();
+                container.removeAllViews();
+                Toast.makeText(context, "Delete news", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
